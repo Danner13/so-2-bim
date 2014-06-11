@@ -3,6 +3,8 @@ package trabso2;
 import java.io.*;
 import java.util.Scanner;
 
+//TLB tamanho 2
+
 public class TrabSO2 {
 
     static String caminho = System.getProperty("user.dir") + "\\src\\traces";
