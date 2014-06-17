@@ -26,16 +26,8 @@ public class TrabSO2 {
             for (int i=0; i<26; i++){
                 String linha = in.readLine();//Lê uma linha no arquivo
                 //System.out.println(linha);
-                String P = linha.substring(0,5); //Número da página
-                String D = linha.substring(5,8); //Deslocamento
-                String RW = linha.substring(9,10); //Leitura ou escrita
-                if(RW.equals("R")){//leitura
-                    System.out.println("Leitura");
-                }else{  
-                    if(RW.equals("W")){
-                        System.out.println("Escrita");
-                    }
-                }
+                MMU mmu = new MMU(linha);
+               
             }
 
         } else {//arquivo não encontrado
