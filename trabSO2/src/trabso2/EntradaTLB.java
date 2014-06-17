@@ -3,7 +3,7 @@ package trabso2;
 
 class EntradaTLB {
     private int p;//Número da página
-    private int f;//endereço físico na memória
+    private int f;//frame
 
     public int getP() {
         return p;
