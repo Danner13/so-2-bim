@@ -20,10 +20,8 @@ public class TrabSO2 {
             filein = new FileReader(arquivo);
             BufferedReader in = new BufferedReader(filein);
 
-            int cont = 0;
-
-            //while(in.ready()){
             MMU mmu = new MMU();//Chamando o construtor da MMU enviando linha como parâmetro
+            //while(in.ready()){
             for (int i = 0; i < 26; i++) {
                 String linha = in.readLine();//Lê uma linha no arquivo
                 //System.out.println(linha);

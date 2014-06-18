@@ -3,19 +3,23 @@ package trabso2;
 public class TLB {
 
     private final int tamanho = 2;
-    private boolean alocado = false;
+    public int TLBHIT=0;
+    public int TLBMISS =0;
     EntradaTLB vetorTLB[] = new EntradaTLB[tamanho];
-
-    public TLB(int _p) {
+    
+    public boolean BuscaTLB(int _p){
+        TabelaPag TP = new TabelaPag();
         for (int i = 0; i < tamanho; i++) {
             if (vetorTLB[i].getP() == _p) {
-                //retorna o frame, TLB HIT++
-                alocado = true;
+                ++TLBHIT;
+                return true;
             }
-            if ((i == (tamanho - 1)) && (alocado == false)) {
-                //TLB MISS ++
+            if (i == (tamanho - 1)) {
+                ++TLBMISS;
                 //Buscar na tabela de página
+                TP.BuscaTP(_p);
             }
         }
+        return false;
     }
 }
