@@ -1,15 +1,12 @@
 package trabso2;
-
+import java.util.ArrayList;
 public class TabelaPag {
 
-    EntradaTP TabPag[] = new EntradaTP[1048576];
+    ArrayList<EntradaTP> TabPag = new ArrayList<>();
     Memoria mem = new Memoria();
-    public TabelaPag(){
-        
-    }
 
     public void BuscaTP(int p) {
-        if(TabPag[p].isValido() == true){
+        if(TabPag.get(p).isValido()){
             //atualizar na TLB
             
         }else{
