@@ -1,30 +1,34 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package trabso2;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Stack;
 
-/**
- *
- * @author Alexandre
- */
 public class MMU {
 
     private int p;
     private int d;
 
+    static ArrayList<EntradaTP> TabPag = new ArrayList<>();
+    static Stack<EntradaTLB> vetorTLB = new Stack<>();
+    static ArrayList<String> Mem = new ArrayList<>();
+    static int falhaPag = 0;
+    static int TLBHIT = 0;
+    static int TLBMISS = 0;
+    static Memoria mem = new Memoria();
+    static TLB tlb = new TLB();
+    static TabelaPag TP = new TabelaPag();
+    
     public void traduzirlinha(String linha) {
         String P = linha.substring(0, 5); //Número da página
         String D = linha.substring(5, 8); //Deslocamento
         String RW = linha.substring(9, 10); //Leitura ou escrita
         TLB tlb = new TLB();
 
-        //convertendo hexadecimal para decimal
+        
+        //convertendo hexadecimal para decimal//////////////////////////////////
         int valor = 0;
-        int posicaoCaractere = -1;
+        int posicaoCaractere;
         char[] hexa = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
         // soma ao valor final o dígito binário da posição * 16 elevado ao contador da posição (começa em 0)
@@ -35,12 +39,14 @@ public class MMU {
         p = valor;
 
         valor = 0;
-        posicaoCaractere = -1;
+
         for (int i = D.length(); i > 0; i--) {
             posicaoCaractere = Arrays.binarySearch(hexa, D.charAt(i - 1));
             valor += posicaoCaractere * Math.pow(16, (D.length() - i));
         }
         d = valor;
+        ////////////////////////////////////////////////////////////////////////
+        
         
         tlb.BuscaTLB(p);//Busca na TLB
     }
