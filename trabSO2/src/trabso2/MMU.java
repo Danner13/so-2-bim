@@ -16,7 +16,10 @@ public class MMU {
     private int p;
     private int d;
 
-    public MMU(String linha) {
+    public MMU() {
+    }
+
+    public void traduzirlinha(String linha) {
         String P = linha.substring(0, 5); //Número da página
         String D = linha.substring(5, 8); //Deslocamento
         String RW = linha.substring(9, 10); //Leitura ou escrita
@@ -32,7 +35,7 @@ public class MMU {
             valor += posicaoCaractere * Math.pow(16, (P.length() - i));
         }
         p = valor;
-        
+
         valor = 0;
         posicaoCaractere = -1;
         for (int i = D.length(); i > 0; i--) {
@@ -41,8 +44,6 @@ public class MMU {
         }
         d = valor;
         System.out.println(d);
-       
-        
     }
 
 }
