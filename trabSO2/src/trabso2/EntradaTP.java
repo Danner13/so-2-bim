@@ -1,4 +1,3 @@
-
 package trabso2;
 
 public class EntradaTP {

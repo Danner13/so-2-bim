@@ -1,29 +1,35 @@
 package trabso2;
 
-import java.util.ArrayList;
-
-
 public class TLB {
 
     private final int tamanho = 2;
-    public int TLBHIT=0;
-    public int TLBMISS =0;
-    //EntradaTLB vetorTLB[] = new EntradaTLB[tamanho];
-    ArrayList<EntradaTLB> vetorTLB = new ArrayList<>();
-    
-    public boolean BuscaTLB(int _p){
-        TabelaPag TP = new TabelaPag();
+    private int cont = 0;
+
+    public void BuscaTLB(int _p) {
         for (int i = 0; i < tamanho; i++) {
-            if (vetorTLB.get(i).getP() == _p) {
-                ++TLBHIT;
-                return true;
+            if (MMU.vetorTLB.get(i).getP() == _p) {
+                ++MMU.TLBHIT;
+                MMU.vetorTLB.push(MMU.vetorTLB.remove(i));
+                break;
             }
             if (i == (tamanho - 1)) {
-                ++TLBMISS;
+                ++MMU.TLBMISS;
                 //Buscar na tabela de página
-                TP.BuscaTP(_p);
+                MMU.TP.BuscaTP(_p);
             }
         }
-        return false;
+    }
+
+    public void substitui(int p, int f) {
+        EntradaTLB entrada = new EntradaTLB();
+        entrada.setF(f);
+        entrada.setP(p);
+        if (cont < tamanho) {
+            MMU.vetorTLB.add(entrada);
+            ++cont;
+        } else {//substituição LRU
+            MMU.vetorTLB.remove(tamanho);
+            MMU.vetorTLB.push(entrada);
+        }
     }
 }
