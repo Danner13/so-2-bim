@@ -16,13 +16,11 @@ public class MMU {
     private int p;
     private int d;
 
-    public MMU() {
-    }
-
     public void traduzirlinha(String linha) {
         String P = linha.substring(0, 5); //Número da página
         String D = linha.substring(5, 8); //Deslocamento
         String RW = linha.substring(9, 10); //Leitura ou escrita
+        TLB tlb = new TLB();
 
         //convertendo hexadecimal para decimal
         int valor = 0;
@@ -43,7 +41,8 @@ public class MMU {
             valor += posicaoCaractere * Math.pow(16, (D.length() - i));
         }
         d = valor;
-        System.out.println(d);
+        
+        tlb.BuscaTLB(p);//Busca na TLB
     }
 
 }
