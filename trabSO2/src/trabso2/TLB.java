@@ -9,6 +9,7 @@ public class TLB {
         for (int i = 0; i < tamanho; i++) {
             if (MMU.vetorTLB.get(i).getP() == _p) {
                 ++MMU.TLBHIT;
+                //colocando o elemento no topo da pilha (LRU)
                 MMU.vetorTLB.push(MMU.vetorTLB.remove(i));
                 break;
             }
