@@ -12,21 +12,31 @@ public class MMU {
     static ArrayList<EntradaTP> TabPag = new ArrayList<>();
     static Stack<EntradaTLB> vetorTLB = new Stack<>();
     static ArrayList<String> Mem = new ArrayList<>();
+
     static int falhaPag = 0;
     static int TLBHIT = 0;
     static int TLBMISS = 0;
+    static int Leituras = 0;
+    static int Escritas = 0;
+
     static Memoria mem = new Memoria();
     static TLB tlb = new TLB();
     static TabelaPag TP = new TabelaPag();
-    
+
     public void traduzirlinha(String linha) {
         String P = linha.substring(0, 5); //Número da página
         String D = linha.substring(5, 8); //Deslocamento
         String RW = linha.substring(9, 10); //Leitura ou escrita
-        TLB tlb = new TLB();
 
-        
-        //convertendo hexadecimal para decimal//////////////////////////////////
+        if (RW.equals("W")) {
+            ++Escritas;
+        } else {
+            if (RW.equals("R")) {
+                ++Leituras;
+            }
+        }
+
+///////////////////convertendo hexadecimal para decimal/////////////////////////
         int valor = 0;
         int posicaoCaractere;
         char[] hexa = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
@@ -46,8 +56,7 @@ public class MMU {
         }
         d = valor;
         ////////////////////////////////////////////////////////////////////////
-        
-        
+
         tlb.BuscaTLB(p);//Busca na TLB
     }
 
