@@ -11,7 +11,9 @@ public class MMU {
 
     static ArrayList<EntradaTP> TabPag = new ArrayList<>();
     static Stack<EntradaTLB> vetorTLB = new Stack<>();
-    static ArrayList<String> Mem = new ArrayList<>();
+    static ArrayList<Integer> Mem = new ArrayList<>();
+    static Stack<Integer> LRUMem = new Stack<>();
+    static Stack<Integer> LRUTLB = new Stack<>();
 
     static int falhaPag = 0;
     static int TLBHIT = 0;
