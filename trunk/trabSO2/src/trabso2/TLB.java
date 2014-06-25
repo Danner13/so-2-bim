@@ -5,20 +5,21 @@ public class TLB {
     private final int tamanho = 2;
     private int cont = 0;
 
-    public void BuscaTLB(int _p) {
+    public int BuscaTLB(int _p) {
         for (int i = 0; i < tamanho; i++) {
             if (MMU.vetorTLB.get(i).getP() == _p) {
                 ++MMU.TLBHIT;
                 //colocando o elemento no topo da pilha (LRU)
-                MMU.vetorTLB.push(MMU.vetorTLB.remove(i));
-                break;
+                MMU.LRUTLB.push(MMU.LRUTLB.remove(i));
+                return (MMU.vetorTLB.get(i).getF());
             }
             if (i == (tamanho - 1)) {
                 ++MMU.TLBMISS;
                 //Buscar na tabela de página
-                MMU.TP.BuscaTP(_p);
+                return(MMU.TP.BuscaTP(_p));
             }
         }
+        return 0;//alterar o retorno
     }
 
     public void substitui(int p, int f) {
@@ -27,10 +28,16 @@ public class TLB {
         entrada.setP(p);
         if (cont < tamanho) {
             MMU.vetorTLB.add(entrada);
+            MMU.LRUTLB.push(f);
             ++cont;
         } else {//substituição LRU
-            MMU.vetorTLB.remove(tamanho);
-            MMU.vetorTLB.push(entrada);
+            for (int i = 0; i < tamanho; i++) {
+                if (MMU.LRUTLB.get(0) == MMU.vetorTLB.get(i).getF()) {
+                    MMU.vetorTLB.setElementAt(entrada, i);
+                    MMU.LRUTLB.remove(0);//Assumindo que o stack implementa a base como 0
+                    MMU.LRUTLB.push(entrada.getF());
+                }
+            }
         }
     }
 }
