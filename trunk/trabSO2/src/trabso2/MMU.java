@@ -24,8 +24,14 @@ public class MMU {
     static Memoria mem = new Memoria();
     static TLB tlb = new TLB();
     static TabelaPag TP = new TabelaPag();
+    
+    public MMU(){
+        for (int i=0; i<1048576; i++){
+            TabPag.add(new EntradaTP());
+        }
+    }
 
-    public void traduzirlinha(String linha) {
+    public int traduzirlinha(String linha) {
         String P = linha.substring(0, 5); //Número da página
         String D = linha.substring(5, 8); //Deslocamento
         String RW = linha.substring(9, 10); //Leitura ou escrita
@@ -49,7 +55,7 @@ public class MMU {
             valor += posicaoCaractere * Math.pow(16, (P.length() - i));
         }
         p = valor;
-
+        //System.out.println("P = " + p);
         valor = 0;
 
         for (int i = D.length(); i > 0; i--) {
@@ -59,7 +65,7 @@ public class MMU {
         d = valor;
         ////////////////////////////////////////////////////////////////////////
 
-        tlb.BuscaTLB(p);//Busca na TLB
+        return (tlb.BuscaTLB(p));//Busca na TLB
     }
 
 }

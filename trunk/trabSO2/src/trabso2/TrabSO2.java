@@ -21,13 +21,18 @@ public class TrabSO2 {
             BufferedReader in = new BufferedReader(filein);
 
             MMU mmu = new MMU();//Chamando o construtor da MMU enviando linha como parâmetro
-            //while(in.ready()){
-            for (int i = 0; i < 26; i++) {
+            while(in.ready()){
+            //for (int i = 0; i < 26; i++) {
                 String linha = in.readLine();//Lê uma linha no arquivo
-                //System.out.println(linha);
-                mmu.traduzirlinha(linha);
-
+                System.out.println("F = " + mmu.traduzirlinha(linha));
             }
+                //System.out.println(linha);
+                System.out.println("TLB HIT: " + MMU.TLBHIT);
+                System.out.println("TLB MISS: " + MMU.TLBMISS);
+                System.out.println("Falha de página: " + MMU.falhaPag);
+                System.out.println("Leitura: " + MMU.Leituras);
+                System.out.println("Escrita: " + MMU.Escritas);
+                //System.out.println("---------------");
 
         } else {//arquivo não encontrado
             System.out.println("Arquivo não encontrado");

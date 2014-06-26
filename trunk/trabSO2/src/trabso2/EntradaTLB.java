@@ -4,7 +4,7 @@ class EntradaTLB {
 
     private int p;//Número da página
     private int f;//frame
-
+        
     public int getP() {
         return p;
     }
