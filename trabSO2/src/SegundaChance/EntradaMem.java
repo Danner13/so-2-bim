@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package SegundaChance;
 
 /**
@@ -11,16 +10,9 @@ package SegundaChance;
  * @author Alexandre
  */
 class EntradaMem {
-    private boolean b;
+
+    private int b;
     private int m;
-
-    public boolean isB() {
-        return b;
-    }
-
-    public void setB(boolean b) {
-        this.b = b;
-    }
 
     public int getM() {
         return m;
@@ -29,4 +21,13 @@ class EntradaMem {
     public void setM(int m) {
         this.m = m;
     }
+
+    public int getB() {
+        return b;
+    }
+
+    public void setB(int b) {
+        this.b = b;
+    }
+
 }

@@ -9,9 +9,8 @@ public class TLB {
         for (int i = 0; i < tamanho; i++) {
             if ((i<cont) && (MMU.vetorTLB.get(i).getP() == _p)) {
                 ++MMU.TLBHIT;
-                //colocando o elemento no topo da pilha (LRU)
-                //MMU.LRUTLB.push(MMU.LRUTLB.remove(i));
                 MMU.vetorTLB.get(i).setSc(1);
+                MMU.Mem.get(MMU.vetorTLB.get(i).getF()).setB(1);
                 return (MMU.vetorTLB.get(i).getF());
             }
             if (i == (tamanho - 1) || tamanho > cont) {
@@ -30,21 +29,24 @@ public class TLB {
         entrada.setSc(1);
         if (cont < tamanho) {
             MMU.vetorTLB.add(entrada);
-            //setar bit como 1 na memória
+            MMU.Mem.get(entrada.getF()).setB(1);
+            ++cont;
         } else {//substituição SegundaChance
             while (true){
+                if(MMU.SCTLB>=tamanho){
+                    MMU.SCTLB=0;
+                }
+                
                 if(MMU.vetorTLB.get(MMU.SCTLB).getSc() == 0){
                     //efetua troca
                     MMU.vetorTLB.set(MMU.SCTLB, entrada);
-                    //setar bit como um na memória
+                    MMU.Mem.get(entrada.getF()).setB(1);
+                    ++MMU.SCTLB;
                     break;
                 }else{
                     MMU.vetorTLB.get(MMU.SCTLB).setSc(0);
                 }
                 ++MMU.SCTLB;
-                if(MMU.SCTLB>=tamanho){
-                    MMU.SCTLB=0;
-                }
             }
         }
     }
