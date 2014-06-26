@@ -3,7 +3,7 @@ package LRU;
 public class Memoria {
 
     static int i = -1;
-    int tam = 5;
+    int tam = 64;
 
     public int AcessaMem(int _p) {
         //Substituir páginas
