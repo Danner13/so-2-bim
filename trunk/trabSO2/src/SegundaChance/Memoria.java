@@ -11,34 +11,41 @@ public class Memoria {
         if (MMU.Mem.size() < tam) {
             ++i;
             EntradaMem entrada = new EntradaMem();
-            entrada.setB(true);
+            entrada.setB(1);
             entrada.setM(_p);
             MMU.Mem.add(i, entrada);
             MMU.TabPag.get(_p).setValido(true);//setando o bit como válido
             MMU.TabPag.get(_p).setF(i);
             MMU.tlb.substitui(_p, i);
             return (i);
-        } else {//1048576
+        } else {
+            //System.out.println("Memória cheia");
             while (true) {
-                if (MMU.Mem.get(MMU.SCMem).isB()) {
-                    MMU.Mem.get(MMU.SCMem).setB(false);
+                if (MMU.SCMem >= tam) {
+                    MMU.SCMem = 0;
+                    System.out.println("Zera SCMem");
+                }
+
+                if (MMU.Mem.get(MMU.SCMem).getB() == 1) {
+                    MMU.Mem.get(MMU.SCMem).setB(0);
+                    //System.out.println("Troca bit pra 0");
                 } else {
-                    MMU.LRUMem.push(MMU.LRUMem.remove(0));//Considerando que o 0 é a 
-                    MMU.Mem.set(MMU.LRUMem.get(tam - 1), _p);
                     for (int k = 0; k < 1048576; k++) {
-                        if (MMU.TabPag.get(k).isValido() && (MMU.TabPag.get(k).getF() == MMU.LRUMem.get(tam))  {
+                        if (MMU.TabPag.get(k).isValido() && (MMU.TabPag.get(k).getF() == MMU.SCMem)) {
                             MMU.TabPag.get(k).setValido(false);
                             MMU.TabPag.get(k).setF(-1);
                             MMU.TabPag.get(_p).setValido(true);
-                            MMU.TabPag.get(_p).setF(MMU.LRUMem.get(tam - 1));
-                            MMU.tlb.substitui(_p, MMU.LRUMem.get(tam - 1));
-                            return (MMU.LRUMem.get(tam - 1));
+                            MMU.TabPag.get(_p).setF(MMU.SCMem);
+                            MMU.tlb.substitui(_p, MMU.SCMem);
+                            //System.out.println("Substitui e retorna");
+                            ++MMU.SCMem;
+                            return (MMU.SCMem-1);
                         }
                     }
                 }
+                ++MMU.SCMem;
 
             }
         }
-        return -1;
     }
 }
