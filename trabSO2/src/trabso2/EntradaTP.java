@@ -2,7 +2,13 @@ package trabso2;
 
 public class EntradaTP {
     private int f;
-    private boolean valido=false;
+    private boolean valido;
+
+    public EntradaTP() {
+        this.f = -1;
+        this.valido = false;
+    }
+    
 
     public int getF() {
         return f;

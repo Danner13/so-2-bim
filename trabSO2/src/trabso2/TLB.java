@@ -7,13 +7,13 @@ public class TLB {
 
     public int BuscaTLB(int _p) {
         for (int i = 0; i < tamanho; i++) {
-            if (MMU.vetorTLB.get(i).getP() == _p) {
+            if ((i<cont) && (MMU.vetorTLB.get(i).getP() == _p)) {
                 ++MMU.TLBHIT;
                 //colocando o elemento no topo da pilha (LRU)
                 MMU.LRUTLB.push(MMU.LRUTLB.remove(i));
                 return (MMU.vetorTLB.get(i).getF());
             }
-            if (i == (tamanho - 1)) {
+            if (i == (tamanho - 1) || tamanho > cont) {
                 ++MMU.TLBMISS;
                 //Buscar na tabela de página
                 return(MMU.TP.BuscaTP(_p));
