@@ -1,4 +1,4 @@
-package trabso2;
+package SegundaChance;
 
 import java.util.ArrayList;
 import java.util.Arrays;
