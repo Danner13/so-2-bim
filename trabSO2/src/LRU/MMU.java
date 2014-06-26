@@ -33,6 +33,7 @@ public class MMU {
 
     public int traduzirlinha(String linha) {
         String P = linha.substring(0, 5); //Número da página
+        System.out.println("P = " + P);
         String D = linha.substring(5, 8); //Deslocamento
         String RW = linha.substring(9, 10); //Leitura ou escrita
 
