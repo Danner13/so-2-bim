@@ -1,4 +1,4 @@
-package trabso2;
+package LRU;
 
 class EntradaTLB {
 
