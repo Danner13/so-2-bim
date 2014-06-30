@@ -21,10 +21,10 @@ public class LRU {
             BufferedReader in = new BufferedReader(filein);
 
             MMU mmu = new MMU();//Chamando o construtor da MMU enviando linha como parâmetro
-            int cont = 0;
+            //int cont = 0;
             while (in.ready()) {
                 //for (int k = 0; k < 1000; k++) {
-                ++cont;
+                //++cont;
                 String linha = in.readLine();//Lê uma linha no arquivo
                 //System.out.println("\n\n" + cont);
                 System.out.println("F = " + mmu.traduzirlinha(linha));
