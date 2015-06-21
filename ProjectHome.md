@@ -1,0 +1,1 @@
+Trabalho de SO segundo bimestre, gerência de memória, implementação do LRU e algoritmo segunda chance
